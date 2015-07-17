@@ -2,6 +2,7 @@
 
 app.controller('UserListCtrl', function ($scope, users, User) {
 	$scope.users = users;
+
 	$scope.addUser = function () {
 		var n = Math.floor(Math.random()*96),
 			g = (Math.random() > 0.5 ? 'women' : 'men');

@@ -5,7 +5,7 @@ var router = require('express').Router(),
 
 var HttpError = require('../../utils/HttpError');
 var Story = require('./story.model');
-
+var isAuthenticated = require('../../app/isAuthenticated.middleware');
 router.param('id', function (req, res, next, id) {
 	Story.findById(id).exec()
 	.then(function (story) {
@@ -53,7 +53,7 @@ router.put('/:id', function (req, res, next) {
 	})
 	.then(null, next);
 });
-
+router.delete('/:id',isAuthenticated);
 router.delete('/:id', function (req, res, next) {
 	req.story.remove()
 	.then(function () {

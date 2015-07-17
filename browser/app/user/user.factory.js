@@ -45,6 +45,7 @@ app.factory('User', function ($http, Story) {
 			verb = 'put';
 			url = this.url;
 		}
+		console.log(this,verb);
 		return $http[verb](url, this).then(function (res) {
 			return new User(res.data);
 		});

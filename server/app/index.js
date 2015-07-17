@@ -9,6 +9,8 @@ app.use(require('./sass.middleware'));
 
 app.use(require('./statics.middleware'));
 
+app.use(require('./requestState.middleware'))
+
 app.use('/auth', require('../auth'));
 
 app.use('/api', require('../api'));

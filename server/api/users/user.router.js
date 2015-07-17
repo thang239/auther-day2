@@ -5,8 +5,18 @@ var router = require('express').Router(),
 
 var HttpError = require('../../utils/HttpError');
 var User = require('./user.model');
+var isAuthenticated = require('../../app/isAuthenticated.middleware');
+// var isAuthenticated = function(req, res, next){
+// 	if(req.session.userId){
+// 		next();
+// 	} else{
+// 		res.status(401).send();
+// 	}
+// }
+
 
 router.param('id', function (req, res, next, id) {
+	console.log('check 1:',req.session);
 	User.findById(id).exec()
 	.then(function (user) {
 		if (!user) throw HttpError(404);
@@ -27,6 +37,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
+	console.log(req.requestedUser);
 	User.create(req.body)
 	.then(function (user) {
 		res.status(201).json(user);
@@ -53,12 +64,14 @@ router.put('/:id', function (req, res, next) {
 	.then(null, next);
 });
 
+// router.delete('/:id', isAutw)
+router.delete('/:id',isAuthenticated);
 router.delete('/:id', function (req, res, next) {
-	req.requestedUser.remove()
-	.then(function () {
-		res.status(200).end();
-	})
-	.then(null, next);
+		req.requestedUser.remove()
+		.then(function () {
+			res.status(200).end();
+		})
+		.then(null, next);
 });
 
 module.exports = router;

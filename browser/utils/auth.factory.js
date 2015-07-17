@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('Auth', function (User, $http, $state) {
+app.factory('Auth',function (User, $http, $state) {
 	return {
 		signup: function (credentials) {
 			return new User(credentials).save();
@@ -8,6 +8,9 @@ app.factory('Auth', function (User, $http, $state) {
 		login: function (credentials) {
 			return $http.post('/auth/login', credentials)
 			.then(function (response) {
+				// app.value('currentUser',response.data);
+				// console.log(app.value(),'|',response.data);
+				// currentUser = response.data;
 				return response.data;
 			});
 		},

@@ -22,13 +22,18 @@ function randPhoto () {
 	return 'http://api.randomuser.me/portraits/thumb/' + g + '/' + n + '.jpg'
 }
 
+function randAdmin(){
+	return Math.floor(Math.random()*100)>30?false:true;
+}
+
 function randUser () {
 	return new User({
 		name: [chance.first(), chance.last()].join(' '),
 		photo: randPhoto(),
 		phone: chance.phone(),
 		email: emails.pop(),
-		password: chance.word()
+		password: chance.word(),
+		isAdmin: randAdmin()
 	});
 }
 
@@ -59,6 +64,14 @@ function randStory (allUsers) {
 
 function generateAll () {
 	var users = _.times(numUsers, randUser);
+	users.push(new User({
+		name: 'Thang',
+		photo: randPhoto(),
+		phone: chance.phone(),
+		email: 'thang@world.com',
+		password: '123',
+		isAdmin: true
+	}));
 	var stories = _.times(numStories, function () {
 		return randStory(users);
 	});

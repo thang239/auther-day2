@@ -23,6 +23,10 @@ var User = new mongoose.Schema({
 		unique: true
 	},
 	hashedPassword: String,
+	isAdmin: {
+		type: Boolean,
+		default: false
+	},
 	salt: {
 		type: String,
 		default: makeSalt

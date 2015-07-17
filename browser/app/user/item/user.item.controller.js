@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('UserItemCtrl', function ($scope, $state) {
+app.controller('UserItemCtrl', function ($scope, $state, currentUser) {
 	$scope.save = function () {
 		$scope.user.save();
 	}
@@ -9,4 +9,11 @@ app.controller('UserItemCtrl', function ($scope, $state) {
 			$scope.user.isDestroyed = true;
 		});
 	};
+	// // console.log($scope.user);
+	console.log('currentUser.user:',currentUser.user);
+	console.log('user', $scope.user)
+
+	$scope.showRemoveButton = (currentUser.user===undefined)?false:((currentUser.user._id === $scope.user._id)?true:false);
+	// $scope.showRemoveButton = false;
+	// // console.log($scope.user.showRemoveButton)
 });

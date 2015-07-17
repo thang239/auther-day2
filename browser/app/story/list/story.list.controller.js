@@ -1,12 +1,13 @@
 'use strict';
 
-app.controller('StoryListCtrl', function ($scope, stories, Story, users) {
+app.controller('StoryListCtrl', function ($scope, stories, Story, users,currentUser) {
 	$scope.stories = stories;
 	$scope.users = users;
 
 	$scope.newStory = new Story();
-	
+	console.log(currentUser);
 	$scope.removeStory = function (story) {
+
 		console.log(story);
 		story.destroy()
 		.then(function () {
